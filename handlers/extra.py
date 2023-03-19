@@ -16,5 +16,5 @@ async def pin_handler(message: types.Message):
 
 
 def register_hadlers_extra(dp: Dispatcher):
-    dp.register_message_handler(pin_handler, commands=['pin'])
+    dp.register_message_handler(pin_handler, commands=['pin'],commands_prefix='!/')
     dp.register_message_handler(mem, commands=['mem'])
