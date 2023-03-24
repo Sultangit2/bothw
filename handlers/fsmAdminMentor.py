@@ -81,6 +81,7 @@ async def load_group(message: types.Message, state: FSMContext):
         await FSMAdmin.next()
         await message.answer("Все верно?", reply_markup=client_kb.submit_markup)
 
+
 async def submit(message: types.Message, state: FSMContext):
     if message.text == "ДА":
         await sql_command_insert(state)

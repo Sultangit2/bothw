@@ -2,9 +2,10 @@ from aiogram.utils import executor
 import logging
 
 from config import dp,bot , ADMINS
-from handlers import client, callback,  admin, extra,fsmAdminMentor
+from handlers import client, callback,  admin, extra,fsmAdminMentor,schedule
 from data_base.bot_db import sql_create
 async def on_startup(dp):
+    await schedule.set_schedler()
     await bot.send_message(ADMINS[0], "Я родился!")
     sql_create()
 
