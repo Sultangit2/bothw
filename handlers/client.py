@@ -1,7 +1,9 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup,ParseMode
 from config import bot
 from aiogram import Dispatcher, types
 from data_base.bot_db import sql_command_random
+from parser.news import parser
+
 
 async def quiz1(message: types.CallbackQuery):
     markup = InlineKeyboardMarkup()
@@ -35,8 +37,19 @@ async def get_random_user(message: types.Message):
                 f"{random_user[5]}\n@{random_user[1]}"
     )
 
+async def get_news(message:types.Message):
+    news = parser()
+    for i in news:
+        await message.answer(
+            f"{i['link']}\n\n"
+            f"<b><a href='{i['link']}'>{i['title']}</a></b>\n"
+            f"{i['description']}\n"
+            f"{i['date_from_html']}\n",
+            parse_mode=ParseMode.HTML
+        )
+
 
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(quiz1, commands=['quiz'])
     dp.register_message_handler(get_random_user, commands=['get'])
-
+    dp.register_message_handler(get_news, commands=['news'])
