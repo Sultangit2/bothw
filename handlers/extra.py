@@ -1,9 +1,10 @@
 from aiogram import Dispatcher, types
-
-
+from .loader import download_audio
 async def mem(message: types.message):
-    with open('images/img.jpg', 'rb') as img:
-        await message.answer_photo(photo=img)
+    if "youtube.com" in message.text:
+        await message.answer("Loading...")
+        video = open(download_audio(message.text), "rb")
+        await message.answer_audio(video)
 
 
 async def pin_handler(message: types.Message):
